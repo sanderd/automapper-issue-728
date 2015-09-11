@@ -45,11 +45,15 @@ namespace FailureMap
                     })
                     .ToList();
 
+                Console.WriteLine("Manual select mapping");
+                testUsingManualProjection.ForEach(user => user.Documents.ToList().ForEach(doc => Console.WriteLine(doc.Title + " ispublic " + doc.Meta.IsPublic)));
+
                 var testUsingAutomapper = db.Users
                     .Project(mapper)
                     .To<ApiUser>()
                     .ToList();
 
+                Console.WriteLine("Automapper projection");
                 testUsingAutomapper.ForEach(user => user.Documents.ToList().ForEach(doc => Console.WriteLine(doc.Title + " ispublic " + doc.Meta.IsPublic)));
 
                 Console.ReadKey();
